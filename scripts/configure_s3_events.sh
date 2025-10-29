@@ -13,7 +13,7 @@ BUCKET=$(aws cloudformation describe-stacks \
 
 # Get Lambda function ARN
 LAMBDA_ARN=$(aws lambda list-functions \
-  --query 'Functions[?starts_with(FunctionName, `S3SizeTrackingSizeTrackingStack`)].FunctionArn' \
+  --query 'Functions[?contains(FunctionName, `SizeTrackingFunction`)].FunctionArn' \
   --output text)
 
 echo "Bucket: $BUCKET"
@@ -45,4 +45,5 @@ aws s3api put-bucket-notification-configuration \
   --notification-configuration file:///tmp/s3-notification.json
 
 echo "✅ S3 event notifications configured successfully!"
+
 

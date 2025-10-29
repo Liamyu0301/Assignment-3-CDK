@@ -51,7 +51,7 @@ driver_stack = DriverStack(
     app,
     "S3SizeTrackingDriverStack",
     bucket=storage_stack.bucket,
-    api_url_parameter=plotting_stack.api_url_parameter,
+    api_url=plotting_stack.api_url,
     description="Driver Lambda function for testing the system"
 )
 driver_stack.add_dependency(storage_stack)
@@ -77,7 +77,7 @@ cdk.CfnOutput(
 cdk.CfnOutput(
     plotting_stack,
     "ApiUrlOutput",
-    value=plotting_stack.api_url_parameter.value_as_string,
+    value=plotting_stack.api_url,
     description="Plotting API URL",
     export_name="S3SizeTrackingApiUrl"
 )

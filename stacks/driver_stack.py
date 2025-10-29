@@ -6,7 +6,6 @@ Creates the Lambda function that orchestrates test operations.
 from aws_cdk import (
     Stack,
     Duration,
-    CfnParameter,
     aws_lambda as lambda_,
     aws_s3 as s3,
 )
@@ -26,7 +25,7 @@ class DriverStack(Stack):
         scope: Construct,
         construct_id: str,
         bucket: s3.IBucket,
-        api_url_parameter: CfnParameter,
+        api_url: str,
         **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)

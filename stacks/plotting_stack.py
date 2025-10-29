@@ -6,7 +6,6 @@ Creates the Lambda function that generates matplotlib plots.
 from aws_cdk import (
     Stack,
     Duration,
-    CfnParameter,
     aws_lambda as lambda_,
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
@@ -91,15 +90,6 @@ class PlottingStack(Stack):
             ),
         )
 
-        # Store API URL as a parameter for cross-stack reference
-        self.api_url_parameter = CfnParameter(
-            self,
-            "ApiUrl",
-            type="String",
-            default=f"{api.url}plot",
-            description="Plotting API endpoint URL",
-        )
-        
-        # Override the parameter value with actual API URL
+        # Store API URL for cross-stack reference
         self.api_url = f"{api.url}plot"
 
