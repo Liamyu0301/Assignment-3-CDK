@@ -9,7 +9,6 @@ from aws_cdk import (
     aws_lambda as lambda_,
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
-    aws_s3_notifications as s3n,
 )
 from constructs import Construct
 
@@ -50,17 +49,4 @@ class SizeTrackingStack(Stack):
         # Grant permissions
         bucket.grant_read(self.lambda_function)
         table.grant_write_data(self.lambda_function)
-
-        # Add S3 event notifications
-        # Trigger on all object creation events
-        bucket.add_event_notification(
-            s3.EventType.OBJECT_CREATED,
-            s3n.LambdaDestination(self.lambda_function)
-        )
-
-        # Trigger on all object removal events
-        bucket.add_event_notification(
-            s3.EventType.OBJECT_REMOVED,
-            s3n.LambdaDestination(self.lambda_function)
-        )
 

@@ -11,6 +11,8 @@ This CDK app creates all resources for the S3 bucket size tracking system:
 """
 
 import aws_cdk as cdk
+from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_s3_notifications as s3n
 from stacks.storage_stack import StorageStack
 from stacks.size_tracking_stack import SizeTrackingStack
 from stacks.plotting_stack import PlottingStack
@@ -56,6 +58,17 @@ driver_stack = DriverStack(
 )
 driver_stack.add_dependency(storage_stack)
 driver_stack.add_dependency(plotting_stack)
+
+# Configure S3 event notifications after all stacks are created
+# This avoids circular dependencies
+storage_stack.bucket.add_event_notification(
+    s3.EventType.OBJECT_CREATED,
+    s3n.LambdaDestination(size_tracking_stack.lambda_function)
+)
+storage_stack.bucket.add_event_notification(
+    s3.EventType.OBJECT_REMOVED,
+    s3n.LambdaDestination(size_tracking_stack.lambda_function)
+)
 
 # Output important information
 cdk.CfnOutput(
