@@ -56,7 +56,7 @@ class PlottingStack(Stack):
             environment={
                 "TABLE_NAME": table.table_name,
                 "BUCKET_NAME": bucket.bucket_name,
-                "WINDOW_SECONDS": "10",
+                "WINDOW_SECONDS": "20",
             },
             description="Generates matplotlib plots of bucket size history",
         )

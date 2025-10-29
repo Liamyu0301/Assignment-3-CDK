@@ -71,8 +71,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             print(f"✗ {error_msg}")
         
         # Sleep between operations (longer for first operation to ensure tracking lambda completes)
-        print("Sleeping 4 seconds...")
-        time.sleep(4)
+        print("Sleeping 6 seconds...")
+        time.sleep(6)
         
         # Operation 2: Update assignment1.txt
         try:
